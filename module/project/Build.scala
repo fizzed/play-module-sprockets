@@ -6,7 +6,7 @@ import com.typesafe.sbt.SbtPgp._
 object ApplicationBuild extends Build {
 
   val appName         = "fizzed-play-module-sprockets"
-  val appVersion      = "1.0.0"
+  val appVersion      = "1.1.0"
 
   val appDependencies = Seq(
     "com.yahoo.platform.yui" % "yuicompressor" % "2.4.7" exclude("rhino", "js"),
