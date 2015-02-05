@@ -175,9 +175,10 @@ public class Assets extends Controller {
 		// set to current time
 		response().setHeader(DATE, DATE_FMT.print(System.currentTimeMillis()));
 		
+		// Play 2.2 will use chunked transfer encoding by default to deliver inputstream
+		// results back to the client.  Setting a Content-Length header breaks this functionality
+		// so the easy fix is to no longer set a content-length
 		InputStream is = url.openStream();
-		int length = is.available();
-		response().setHeader(CONTENT_LENGTH, length+"");
 		
 		return ok(is);
 	}
