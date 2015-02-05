@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Fizzed Sprockets Module Sample</title>
+    <!--
+    <link rel="stylesheet" href="@routes.Assets.at("plugins/bootstrap/css/bootstrap.css")">
+    <link rel="stylesheet" href="@routes.Assets.at("plugins/font-awesome/css/font-awesome.css")">
+    <link rel="stylesheet" href="@routes.Assets.at("plugins/font-mfizz/font-mfizz.css")">
+    -->
+    @com.fizzed.play.sprockets.OptimizedAssets.stylesheets("app", Array(
+		"plugins/bootstrap/css/bootstrap.css",
+		"plugins/font-awesome/css/font-awesome.css",
+		"css/app.css"))
+    @com.fizzed.play.sprockets.OptimizedAssets.stylesheet("plugins/font-mfizz/font-mfizz.css")
+</head>
+<body>
+	<div class="container-fluid">
+		Hello World!<br/>
+		<i class="icon-flag icon-4x"></i><br/>
+		<i class="icon-java icon-4x"></i><br/>
+		
+		<img src="@com.fizzed.play.sprockets.OptimizedAssets.fingerprint("img/logo.83x32.png")"/><br/><br/>
+		<img src="@com.fizzed.play.sprockets.OptimizedAssets.fingerprint("img/favicon.32x32.ico")"/><br/><br/>
+		
+	</div>
+	
+<!-- javascript -->
+<!--
+<script type="text/javascript" src="@routes.Assets.at("js/jquery-1.10.2.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("plugins/bootstrap/js/bootstrap.js")"></script>
+-->
+@com.fizzed.play.sprockets.OptimizedAssets.javascripts("app", Array(
+	"js/jquery-1.10.2.min.js",
+	"plugins/bootstrap/js/bootstrap.js", "js/app.js", "js/html5.js"), minify = true)
+</body>
+</html>

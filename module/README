@@ -1,0 +1,25 @@
+This is your new Play 2.1 application
+=====================================
+
+What controllers.Assets.at() returns for a file:
+
+Cache-Control:max-age=3600
+Content-Length:139997
+Content-Type:text/css; charset=utf-8
+Date:Fri, 26 Jul 2013 23:08:06 GMT
+Etag:"1c50c315f6966470a53da2b0c12ffbb1d8cbce78"
+Last-Modified:Mon, 15 Jul 2013 07:11:26 GMT
+
+This is what com.mfizz.play.sprockets.Assets.at() returns for that same file:
+
+Cache-Control:max-age=3600
+Content-Length:139997
+Content-Type:text/css; charset=utf-8
+Date:Fri, 26 Jul 2013 23:21:26 GMT
+Etag:"1c50c315f6966470a53da2b0c12ffbb1d8cbce78"
+Last-Modified:Mon, 15 Jul 2013 07:11:26 GMT
+
+
+
+Features:
+ - Verifies an asset exists (throws an exception)
