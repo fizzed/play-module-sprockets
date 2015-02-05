@@ -9,7 +9,7 @@ Sprockets for PlayFramework
 
 Module for [Play Framework](http://www.playframework.org/) 2.x. It provides an
 asset pipeline that optimizes, bundles, and/or fingerprints assets such CSS, JavaScript, and more.
-Inspired by Ruby on Rails and it's asset pipeline.
+Inspired by Ruby on Rails asset pipeline.
 
 
 ## Compatibility matrix
