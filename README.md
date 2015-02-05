@@ -7,8 +7,8 @@ Sprockets for PlayFramework
 
 ## Overview
 
-Module for [Play Framework](http://www.playframework.org/) 2.x. It provides an
-asset pipeline that optimizes, bundles, and/or fingerprints assets such CSS, JavaScript, and more.
+[Play Framework](http://www.playframework.org/) 2.x module that provides an
+asset pipeline.  Pipeline will optimize, bundle, and/or fingerprint assets such CSS, JavaScript, and more.
 Inspired by Ruby on Rails asset pipeline.
 
 
