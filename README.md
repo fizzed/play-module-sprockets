@@ -11,6 +11,10 @@ Sprockets for PlayFramework
 asset pipeline.  Pipeline will optimize, bundle, and/or fingerprint assets such CSS, JavaScript, and more.
 Inspired by Ruby on Rails asset pipeline.
 
+In development mode, optimization can be disabled and normal HTML tags will
+be produced which skips bundling, optimization, or minification. In production mode,
+optimization will occur at runtime the first time a user connects.
+
 
 ## Compatibility matrix
 
@@ -55,4 +59,57 @@ object ApplicationBuild extends Build {
   ...
 }
 
+
+## Configuration
+
+
+### conf/application.conf
+
+Add the following section:
+
+```
+mfz-sprockets {
+  # true by default in dev, false by default in prod
+  #info-enabled = true
+
+  # false by default in either dev or prod
+  #debug-enabled = false
+
+  # by default true in prod, false in dev; if set then forced regardless of prod vs. dev
+  #optimize-assets = true
+
+  # by default true in prod, false in dev; if set then forced regardless of prod vs. dev
+  #cache-control-assets = false
+ 
+  assets {
+    # must exist for OptimizedAssets to work
+    optimized-assets {
+      uri = "/assets/o"
+      dirs = "target/optimized-assets"
+      fallback = true
+    }
+  }
+}
+```
+
+### Within templates
+
+See `samples` project for full example.
+
+To optionally bundle, minify, and fingerprint stylesheets:
+
+```html
+@com.fizzed.play.sprockets.OptimizedAssets.stylesheets("app", Array(
+  "plugins/bootstrap/css/bootstrap.css",
+  "plugins/font-awesome/css/font-awesome.css",
+  "css/app.css"))
+```
+
+To optionally bundle, minify, and fingerprint javascripts:
+
+```html
+@com.fizzed.play.sprockets.OptimizedAssets.javascripts("app", Array(
+  "js/jquery-1.10.2.min.js",
+  "plugins/bootstrap/js/bootstrap.js", "js/app.js", "js/html5.js"), minify = true)
+```
 
