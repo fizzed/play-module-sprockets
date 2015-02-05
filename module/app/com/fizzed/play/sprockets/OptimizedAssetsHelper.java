@@ -20,7 +20,8 @@ import org.mozilla.javascript.EvaluatorException;
 
 import play.Logger;
 import play.Play;
-import play.api.templates.Html;
+//import play.api.templates.Html;
+import play.twirl.api.Content;
 import play.mvc.Controller;
 import scala.collection.mutable.StringBuilder;
 
@@ -37,16 +38,16 @@ public class OptimizedAssetsHelper extends Controller {
 	public static boolean OPTIMIZE_ENABLED = Play.application().configuration().getBoolean(Constants.OPTIMIZE_ASSETS, Play.isProd());
 	
 	public static AssetConfiguration CONFIG = null; 
-	public static ConcurrentHashMap<String,Html> ASSET_REQUESTS = new ConcurrentHashMap<String,Html>();
+	public static ConcurrentHashMap<String,Content> ASSET_REQUESTS = new ConcurrentHashMap<String,Content>();
 	public static ConcurrentHashMap<String,Long> ASSET_REQUESTS_AT = new ConcurrentHashMap<String,Long>();
 	
-	public static Html stylesheets(String name, boolean minify, boolean bundle, String[] files, String media) throws Exception {
+	public static Content stylesheets(String name, boolean minify, boolean bundle, String[] files, String media) throws Exception {
 		String tagStart = "<link rel=\"stylesheet\" type=\"text/css\" href=\"";
 		String tagEnd = "\"" + (media != null && !media.equals("") ? " media=\"" + media + "\"" : "") + ">";
 		return optimize(name, tagStart, tagEnd, minify, bundle, files);
 	}
 	
-	public static Html javascripts(String name, boolean minify, boolean bundle, String[] files) throws Exception {
+	public static Content javascripts(String name, boolean minify, boolean bundle, String[] files) throws Exception {
 		// <script type="text/javascript" src="@routes.Assets.at("js/jquery-1.10.2.js")"></script>
 		String tagStart = "<script type=\"text/javascript\" src=\"";
 		String tagEnd = "\"></script>";
@@ -62,14 +63,14 @@ public class OptimizedAssetsHelper extends Controller {
 		}
 	}
 	
-	public static Html optimize(String name, String tagStart, String tagEnd, boolean minify, boolean bundle, String[] files) throws Exception {
+	public static Content optimize(String name, String tagStart, String tagEnd, boolean minify, boolean bundle, String[] files) throws Exception {
 		loadConfigIfNeeded();
 		
 		// generate key of asset request (basically all parameters)
 		String assetRequestKey = assetKey(name, minify, bundle, files);
 		
 		// if a valid & cached response exists then return it
-		Html response = ASSET_REQUESTS.get(assetRequestKey);
+		Content response = ASSET_REQUESTS.get(assetRequestKey);
 		if (response != null) {
 			// in dev mode even with optimize enabled, we also will check if any of the underlying
 			// assets have been modified from when the response was cached
@@ -104,7 +105,7 @@ public class OptimizedAssetsHelper extends Controller {
 				html.append(tagEnd);
 			}
 			
-			response = new Html(html);
+			response = new play.twirl.api.Html(html.toString());
 			ASSET_REQUESTS_AT.putIfAbsent(assetRequestKey, System.currentTimeMillis());
 			ASSET_REQUESTS.putIfAbsent(assetRequestKey, response);
 			return response;
@@ -215,7 +216,7 @@ public class OptimizedAssetsHelper extends Controller {
 				html.append(tagEnd);
 			}
 			
-			response = new Html(html);
+			response = new play.twirl.api.Html(html.toString());
 			ASSET_REQUESTS_AT.putIfAbsent(assetRequestKey, System.currentTimeMillis());
 			ASSET_REQUESTS.putIfAbsent(assetRequestKey, response);
 			return response;
